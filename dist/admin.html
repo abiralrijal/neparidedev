@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin</title>
+    <style>
+      body {
+        font-family: "Arial", sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f4f4f4;
+      }
+
+      .container {
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        padding: 20px;
+      }
+
+      .form-container,
+      .gallery-container {
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        margin: 0 20px;
+        padding: 20px;
+        width: 40%;
+      }
+
+      h2 {
+        text-align: center;
+        color: #333;
+      }
+
+      form {
+        display: flex;
+        flex-direction: column;
+      }
+
+      label {
+        margin-top: 10px;
+        font-weight: bold;
+      }
+
+      input,
+      select {
+        padding: 8px;
+        margin: 5px 0;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+      }
+
+      button {
+        background-color: #4caf50;
+        color: #fff;
+        padding: 10px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        margin-top: 20px;
+      }
+
+      button:hover {
+        background-color: #45a049;
+      }
+
+      .gallery-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 20px;
+        max-height: 100vh;
+        overflow-y: scroll;
+      }
+
+      .car-card {
+        background-color: #fff;
+        padding: 10px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .car-image {
+        width: 100%;
+        height: auto;
+        border-radius: 4px;
+      }
+
+      @media only screen and (max-width: 768px) {
+        .container {
+          flex-direction: column;
+          align-items: center;
+        }
+
+        .form-container,
+        .gallery-container {
+          width: 100%;
+          margin: 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="form-container">
+        <h2>Car Rental Form</h2>
+        <form id="carRentalForm">
+          <label for="carName">Car Name:</label>
+          <input type="text" id="carName" name="carName" required />
+
+          <label for="carType">Car Type:</label>
+          <select id="carType" name="carType" required>
+            <option value="Petrol">Petrol</option>
+            <option value="Diesel">Diesel</option>
+            <option value="Electric">Electric</option>
+          </select>
+
+          <label for="ratePerHour">Rate per Hour (&#8377;):</label>
+          <input
+            type="number"
+            id="ratePerHour"
+            name="ratePerHour"
+            min="100"
+            value="100"
+            required
+          />
+
+          <label for="ratePerHour">Passenger Seats:</label>
+          <input
+            type="number"
+            id="passengerSeats"
+            name="passengerSeats"
+            min="1"
+            max="8"
+            value="1"
+            required
+          />
+
+          <label for="manufacturedDate">Manufactured Date:</label>
+          <input
+            type="date"
+            id="manufacturedDate"
+            name="manufacturedDate"
+            required
+          />
+
+          <label for="vehicleNumber">Vehicle Number:</label>
+          <input type="text" id="vehicleNumber" name="vehicleNumber" required />
+
+          <label for="carImage">Car Image:</label>
+          <input
+            type="file"
+            id="carImage"
+            name="carImage"
+            accept="image/*"
+            required
+          />
+
+          <button type="submit" class="submitbtn">Submit</button>
+        </form>
+      </div>
+
+      <div class="gallery-container" id="galleryContainer">
+        <!-- Gallery content will be populated dynamically using JavaScript -->
+      </div>
+    </div>
+
+    <script src="./bundle.js"></script>
+  </body>
+</html>

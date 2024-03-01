@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NepaRide App</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    />
+    <link rel="stylesheet" href="./navbar.css" />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Spline+Sans:wght@300;400;500;600;700&display=swap");
+      .hellotitle {
+        margin-top: 5%;
+        font-size: 36px;
+        text-align: center;
+        /* text-decoration: underline; */
+      }
+
+      /* Cards */
+
+      :root {
+        --c-white: #fff;
+        --c-black: #000;
+        --c-ash: #eaeef6;
+        --c-charcoal: #a0a0a0;
+        --c-void: #141b22;
+        --c-fair-pink: #ffedec;
+        --c-apricot: #ff923f83;
+        --c-coffee: #754d42;
+        --c-del-rio: #917072;
+        --c-java: #1fcac5;
+        --c-titan-white: #f99c235c;
+        --c-cold-purple: #242526;
+        --c-indigo: #242526;
+        --c-governor: #4133b7;
+        --c-orange: #feae45;
+      }
+
+      body {
+        font-family: "Spline Sans", sans-serif;
+      }
+
+      .cards {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: flex-start;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 2.5rem;
+        width: 100%;
+        max-width: 80vw;
+        margin: 10vh auto;
+      }
+
+      .card {
+        border-radius: 16px;
+        box-shadow: 0 30px 30px -25px rgba(65, 51, 183, 0.25);
+        max-width: 300px;
+      }
+
+      .plan .details {
+        display: flex;
+        gap: 1rem;
+      }
+      .plan .details div {
+        padding: 0.75em 1em;
+        background-color: var(--c-titan-white);
+        border-radius: 8px;
+        display: flex;
+        flex-direction: column-reverse;
+        gap: 0.125em;
+        flex-basis: 50%;
+      }
+      .plan .details dt {
+        font-size: 0.875rem;
+        color: var(--c-cold-purple);
+      }
+      .plan .details dd {
+        color: var(--c-indigo);
+        font-weight: 600;
+        font-size: 1.25rem;
+      }
+
+      .plan {
+        padding: 10px;
+        background-color: var(--c-white);
+        color: var(--c-del-rio);
+      }
+      .plan strong {
+        font-weight: 600;
+        color: var(--c-coffee);
+      }
+      .plan .inner {
+        padding: 20px;
+        padding-top: 40px;
+        /* background-color: var(--c-fair-pink); */
+        border-radius: 12px;
+        position: relative;
+        overflow: hidden;
+      }
+      .plan .pricing {
+        position: absolute;
+        top: 0;
+        right: 0;
+        background-color: var(--c-apricot);
+        border-radius: 99em 0 0 99em;
+        display: flex;
+        align-items: center;
+        padding: 0.625em 0.75em;
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: var(--c-coffee);
+      }
+      .plan .pricing small {
+        color: var(--c-del-rio);
+        font-size: 0.75em;
+        margin-left: 0.25em;
+      }
+      .plan .title {
+        font-weight: 600;
+        font-size: 1.25rem;
+        color: var(--c-coffee);
+      }
+      .plan .title + * {
+        margin-top: 0.75rem;
+      }
+      .plan .info + * {
+        margin-top: 1rem;
+      }
+      .plan button {
+        font: inherit;
+        background-color: var(--c-indigo);
+        border-radius: 6px;
+        color: var(--c-orange);
+        font-weight: 500;
+        font-size: 1.125rem;
+        width: 100%;
+        border: 0;
+        padding: 1em;
+        margin-top: 10px;
+        transition: color, background-color, border 0.3s, 0.3s ease-out;
+      }
+      .plan button:hover,
+      .plan button:focus {
+        background-color: var(--c-white);
+        color: #141b22;
+        border-left: var(--c-orange) 4px solid;
+        border-right: var(--c-orange) 4px solid;
+      }
+
+      .plan button:hover {
+        cursor: pointer;
+      }
+
+      .carimg {
+        height: 100%;
+        width: 100%;
+        object-fit: contain;
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <div class="wrapper">
+        <div class="logo"><a href="./index.html">NepaRide</a></div>
+        <input type="radio" name="slider" id="menu-btn" />
+        <input type="radio" name="slider" id="close-btn" />
+        <ul class="nav-links">
+          <label for="close-btn" class="btn close-btn"
+            ><i class="fas fa-times"></i
+          ></label>
+          <li><a href="./app.html">Home</a></li>
+          <li><a href="./bookings.html">My Bookings</a></li>
+          <li><a href="#" style="color: #ffa32c" id="user">Hello</a></li>
+          <li>
+            <a href="#" style="opacity: 0" id="logoutbtn">Logout</a>
+          </li>
+        </ul>
+        <label for="menu-btn" class="btn menu-btn"
+          ><i class="fas fa-bars"></i
+        ></label>
+      </div>
+    </nav>
+
+    <div class="body-text">
+      <div class="container">
+        <h2 class="hellotitle">Let's Book a Ride</h2>
+        <div class="cards"></div>
+      </div>
+    </div>
+
+    <script src="./bundle.js"></script>
+  </body>
+</html>

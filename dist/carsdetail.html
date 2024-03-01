@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Book your car</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    />
+    <link rel="stylesheet" href="./navbar.css" />
+    <link rel="stylesheet" href="./carsdetail.css" />
+    <style>
+      body {
+        background: #f4f4f4;
+        max-width: 100%;
+      }
+
+      .full-page-card {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin-top: 100px;
+        background: #f4f4f4; /* Set your desired background color */
+      }
+
+      .card {
+        width: 90%;
+        max-width: 600px;
+        padding: 20px;
+        border-radius: 10px;
+        background: white;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .booking-details {
+        margin-top: 20px;
+      }
+
+      .book-now-button {
+        display: block;
+        width: 100%;
+        padding: 10px;
+        background: #ffa32c;
+        color: white;
+        text-align: center;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      input,
+      .detailelements {
+        margin-bottom: 15px;
+      }
+
+      @media screen and (min-width: 768px) {
+        /* Adjustments for larger screens */
+        .full-page-card {
+          min-height: 80vh;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <div class="wrapper">
+        <div class="logo"><a href="./index.html">NepaRide</a></div>
+        <input type="radio" name="slider" id="menu-btn" />
+        <input type="radio" name="slider" id="close-btn" />
+        <ul class="nav-links">
+          <label for="close-btn" class="btn close-btn"
+            ><i class="fas fa-times"></i
+          ></label>
+          <li><a href="./app.html">Home</a></li>
+          <li><a href="./bookings.html">My Bookings</a></li>
+          <li><a href="#" style="color: #ffa32c" id="user">Hello</a></li>
+          <li>
+            <a href="#" style="opacity: 0" id="logoutbtn">Logout</a>
+          </li>
+        </ul>
+        <label for="menu-btn" class="btn menu-btn"
+          ><i class="fas fa-bars"></i
+        ></label>
+      </div>
+    </nav>
+
+    <script src="./bundle.js"></script>
+    <script></script>
+  </body>
+</html>
