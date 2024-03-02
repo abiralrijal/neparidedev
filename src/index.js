@@ -451,6 +451,7 @@ function carBook() {
         alert(
           "Booking added to your profile. Please get to the pickup location at selected time"
         );
+
         const collectionRef = collection(db, "bookings"); // Replace "users" with your collection name
         let bookingData = getBookingDetails();
         bookingData.user = userIdentification;
@@ -864,9 +865,7 @@ function adminBookings() {
 
     // Function to fetch and display cars from Firebase
     async function displayCars() {
-      let docID = "";
-
-      const fetchOrders = async item => {
+      const fetchOrders = async (item, docID) => {
         try {
           // Fetch cars collection from Firestore
           const carsSnapshot = await getDoc(doc(db, "cars", item.carID));
@@ -908,24 +907,44 @@ function adminBookings() {
 
         querySnapshot.forEach(async doc => {
           const item = doc.data();
-          docID = doc.id;
+          const DOCID = doc.id;
 
-          await fetchOrders(item);
+          await fetchOrders(item, DOCID);
           const delbtns = document.querySelectorAll(".delbtn");
 
           delbtns.forEach(btn => {
             btn.addEventListener("click", e => {
-              deleteCar(e.target.getAttribute("id").replace(/^.*-/, ""));
+              deleteCar(
+                e.target.getAttribute("id").replace(/^.*-/, ""),
+                item.carID,
+                item.user
+              );
             });
           });
 
           console.log(item);
         });
 
-        async function deleteCar(carId) {
+        async function deleteCar(carId, carID, userid) {
           try {
             await deleteDoc(doc(db, "bookings", carId));
             console.log("Car deleted successfully!");
+
+            const userdocRef = doc(db, "users", userid);
+            const userSnap = await getDoc(userdocRef);
+
+            let newBookingData = [
+              ...userSnap
+                .data()
+                .mybookings.filter(item => item.carID !== carID),
+            ];
+            console.log(newBookingData);
+            console.log(carID);
+
+            await updateDoc(userdocRef, {
+              mybookings: newBookingData,
+            });
+
             // Optional: Refresh the displayed cars after deletion
             document.getElementById("galleryContainer").innerHTML = "";
             await displayCars();
