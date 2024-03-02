@@ -115,8 +115,8 @@ function application() {
       document.querySelector("#logoutbtn").addEventListener("click", () => {
         signOut(auth)
           .then(() => {
-            console.log("User signed out successfully");
-            window.location.href = "/loginrenter.html";
+            alert("User signed out successfully");
+            window.location.href = "./loginrenter.html";
           })
           .catch(error => {
             console.error("Error signing out:", error.message);
@@ -124,7 +124,7 @@ function application() {
       });
     } else {
       // User is signed out
-      alert("User is signed out");
+      console.log("User is signed out");
     }
   });
 
@@ -151,7 +151,7 @@ function application() {
         document
           .querySelector(`[data-url="${doc.id}"]`)
           .addEventListener("click", () => {
-            window.location.href = `/carsdetail.html?docid=${doc.id}`;
+            window.location.href = `./carsdetail.html?docid=${doc.id}`;
           });
       });
     } catch (error) {
@@ -182,7 +182,7 @@ function application() {
 
     var pricingContent = document.createElement("span");
     pricingContent.innerHTML =
-      '&#8377;<span id="rate">' + rateText + "</span> <small>/ hr</small>";
+      '&#8377;<span id="rate">' + rateText + "</span> <small>/ day</small>";
 
     pricingSpan.appendChild(pricingContent);
 
@@ -287,7 +287,7 @@ function carBook() {
         signOut(auth)
           .then(() => {
             console.log("User signed out successfully");
-            window.location.href = "/loginrenter.html";
+            window.location.href = "./loginrenter.html";
           })
           .catch(error => {
             console.error("Error signing out:", error.message);
@@ -347,15 +347,19 @@ function carBook() {
         alt="Car Image"
         style="width: 100%; max-width: 300px; border-radius: 5px; margin-left: auto; margin-right: auto; display: block; object-fit: contain"
     />
-    <p class="detailelements" >Car Name: ${carName}</p>
+    <p class="detailelements" >Vehicle Name: ${carName}</p>
     <p class="detailelements" >Manufactured Date: ${manufacturedDate}</p>
-    <p class="detailelements" >Fuel Type: ${fuelType}</p>
+    <p class="detailelements" >Vehicle Type: ${fuelType}</p>
     <p class="detailelements" >Passenger Seats: ${passengerSeats}</p>
-    <p class="detailelements" >Rate per Hour: ${ratePerHour} ₹</p>
+    <p class="detailelements" >Rate per Day: ${ratePerHour} ₹</p>
     <p class="detailelements" >Vehicle Number: ${vehicleNumber}</p>
     <div class="booking-details">
         <label for="pickup-location">Pickup Location:</label>
         <input type="text" id="pickup-location" name="pickup-location" required /><br />
+        <label for="dropofflocation">Drop-off Location:</label>
+        <input type="text" id="dropofflocation" name="dropofflocation" required /><br />
+        <label for="phonenumber">Phone Number:</label>
+        <input type="text" id="phonenumber" name="phonenumber" required /><br />
         <label for="pickup-date">Pickup Date:</label>
         <input type="datetime-local" id="pickup-date" name="pickup-date" required/><br />
         <label for="drop-off-date">Drop-off Date:</label>
@@ -385,6 +389,8 @@ function carBook() {
       const dropDate = document.getElementById("drop-off-date").value;
       const pickDate = document.getElementById("pickup-date").value;
       const pickLocation = document.getElementById("pickup-location").value;
+      const phonenumber = document.getElementById("phonenumber").value;
+      const dropofflocation = document.getElementById("dropofflocation").value;
 
       // You can retrieve other values similarly based on your HTML structure
 
@@ -393,7 +399,9 @@ function carBook() {
         dropDate: dropDate,
         pickDate: pickDate,
         pickLocation: pickLocation,
+        phonenumber: phonenumber,
         totalcost: totalCost,
+        dropoffLocation: dropofflocation,
       };
     }
 
@@ -401,6 +409,27 @@ function carBook() {
     document
       .getElementById("drop-off-date")
       .addEventListener("change", calculateDaysDifference);
+  }
+
+  function getBookingDetails() {
+    const carID = docid; // Replace with the actual document ID
+    const dropDate = document.getElementById("drop-off-date").value;
+    const pickDate = document.getElementById("pickup-date").value;
+    const pickLocation = document.getElementById("pickup-location").value;
+    const phonenumber = document.getElementById("phonenumber").value;
+    const dropofflocation = document.getElementById("dropofflocation").value;
+
+    // You can retrieve other values similarly based on your HTML structure
+
+    return {
+      carID: carID,
+      dropDate: dropDate,
+      pickDate: pickDate,
+      pickLocation: pickLocation,
+      phonenumber: phonenumber,
+      totalcost: totalCost,
+      dropOffLocation: dropofflocation,
+    };
   }
 
   function bookNow(documentId, newValue) {
@@ -422,6 +451,17 @@ function carBook() {
         alert(
           "Booking added to your profile. Please get to the pickup location at selected time"
         );
+        const collectionRef = collection(db, "bookings"); // Replace "users" with your collection name
+        let bookingData = getBookingDetails();
+        bookingData.user = userIdentification;
+
+        addDoc(collectionRef, bookingData)
+          .then(docRef => {
+            console.log("Document written with ID:", docRef.id);
+          })
+          .catch(error => {
+            console.error("Error adding document:", error);
+          });
         console.log("Document successfully updated!");
       } catch (error) {
         console.error("Error updating document:", error.message);
@@ -489,7 +529,7 @@ function mybookings() {
         signOut(auth)
           .then(() => {
             console.log("User signed out successfully");
-            window.location.href = "/loginrenter.html";
+            window.location.href = "./loginrenter.html";
           })
           .catch(error => {
             console.error("Error signing out:", error.message);
@@ -555,7 +595,7 @@ function mybookings() {
 
     var pricingContent = document.createElement("span");
     pricingContent.innerHTML =
-      '&#8377;<span id="rate">' + rateText + "</span> <small>/ hr</small>";
+      '&#8377;<span id="rate">' + rateText + "</span> <small>/ day</small>";
 
     pricingSpan.appendChild(pricingContent);
 
@@ -609,7 +649,7 @@ function mybookings() {
     // Create Drop-off Location details
     var dropOffLocationDetails = document.createElement("div");
     var dropOffLocationDt = document.createElement("dt");
-    dropOffLocationDt.innerHTML = "Drop-off Location";
+    dropOffLocationDt.innerHTML = "Drop-off Date";
     var dropOffLocationDd = document.createElement("dd");
     dropOffLocationDd.id = "drop-off-location";
     dropOffLocationDd.innerHTML = dropOffLocation;
@@ -814,6 +854,93 @@ function adminpanel() {
   }
 }
 
+// This is for adminbookings.html
+function adminBookings() {
+  document.addEventListener("DOMContentLoaded", function () {
+    displayCars();
+
+    // Gallery code
+    const galleryContainer = document.getElementById("galleryContainer");
+
+    // Function to fetch and display cars from Firebase
+    async function displayCars() {
+      let docID = "";
+
+      const fetchOrders = async item => {
+        try {
+          // Fetch cars collection from Firestore
+          const carsSnapshot = await getDoc(doc(db, "cars", item.carID));
+
+          const carData = carsSnapshot.data();
+
+          // Create a card element
+          const carCard = document.createElement("div");
+          carCard.classList.add("car-card");
+
+          // const funurl = carData.imageUrl.split("/");
+
+          // Display car information
+          carCard.innerHTML = `
+                  <h3>${carData.carName}</h3>
+                  <p>Vehicle Type: ${carData.carType}</p>
+                  <p>Rate per Day: ${carData.ratePerHour} &#8377;</p>
+                  <p>Vehicle Number: ${carData.vehicleNumber}</p>
+                  <p>Phone Number: ${item.phonenumber}</p>
+                  <p>Pickup Location: ${item.pickLocation}</p>
+                  <p>Pickup Date: ${item.pickDate}</p>
+                  <p>Drop-off Location: ${item.dropOffLocation}</p>
+                  <p>Drop-off Date: ${item.dropDate}</p>
+      
+                  <button class="delbtn" id="car-${docID}">Delete</button> 
+                `;
+
+          // Append the card to the gallery container
+          galleryContainer.appendChild(carCard);
+        } catch (error) {
+          console.error("Error fetching cars:", error);
+        }
+      };
+
+      try {
+        const bookingsCollectionRef = collection(db, "bookings");
+
+        const querySnapshot = await getDocs(bookingsCollectionRef);
+
+        querySnapshot.forEach(async doc => {
+          const item = doc.data();
+          docID = doc.id;
+
+          await fetchOrders(item);
+          const delbtns = document.querySelectorAll(".delbtn");
+
+          delbtns.forEach(btn => {
+            btn.addEventListener("click", e => {
+              deleteCar(e.target.getAttribute("id").replace(/^.*-/, ""));
+            });
+          });
+
+          console.log(item);
+        });
+
+        async function deleteCar(carId) {
+          try {
+            await deleteDoc(doc(db, "bookings", carId));
+            console.log("Car deleted successfully!");
+            // Optional: Refresh the displayed cars after deletion
+            document.getElementById("galleryContainer").innerHTML = "";
+            await displayCars();
+          } catch (error) {
+            console.error("Error deleting car:", error);
+          }
+        }
+      } catch (error) {
+        console.error("Error getting bookings:", error);
+        return []; // Or handle the error differently
+      }
+    }
+  });
+}
+
 const title = document.getElementsByTagName("title")[0].textContent;
 
 if (title == "Signup") {
@@ -833,6 +960,9 @@ if (title == "Signup") {
 } else if (title == "My Bookings") {
   console.log(title);
   mybookings();
+} else if (title == "Vehicle Orders") {
+  console.log(title);
+  adminBookings();
 } else {
   console.log("error");
 }
